@@ -206,22 +206,15 @@ public class additemActivity extends AppCompatActivity {
             } else {
                 imgeEncoded = null;
             }
-
-            if(!TextUtils.isEmpty(itemnameValue)&&!TextUtils.isEmpty(itemcategoryValue)&&!TextUtils.isEmpty(itempriceValue)){
-
-                Items items = new Items(itemnameValue,itemcategoryValue,itempriceValue,idText, imgeEncoded);
-                databaseReference.child(resultemail).child("Items").child(idText).setValue(items);
-                databaseReferencecat.child(resultemail).child("ItemByCategory").child(itemcategoryValue).child(idText).setValue(items);
-                itemname.setText("");
-                itembarcode.setText("");
-                itemprice.setText("");
-                itembarcode.setText("");
-                imageView.setImageBitmap(null);
-                Toast.makeText(additemActivity.this,itemnameValue+"---Added",Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(additemActivity.this,"Please Fill all the fields",Toast.LENGTH_SHORT).show();
-            }
+            Items items = new Items(itemnameValue,itemcategoryValue,itempriceValue,idText, imgeEncoded);
+            databaseReference.child(resultemail).child("Items").child(idText).setValue(items);
+            databaseReferencecat.child(resultemail).child("ItemByCategory").child(itemcategoryValue).child(idText).setValue(items);
+            itemname.setText("");
+            itembarcode.setText("");
+            itemprice.setText("");
+            itembarcode.setText("");
+            imageView.setImageBitmap(null);
+            Toast.makeText(additemActivity.this,itemnameValue+"---Added",Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(additemActivity.this,"Bar/Qr already exists",Toast.LENGTH_SHORT).show();
         }

@@ -215,25 +215,18 @@ public class edititemActivity extends AppCompatActivity {
                 imgeEncoded = null;
             }
         }
+        Items items = new Items(itemnameValue, itemcategoryValue, itempriceValue, itembarcodeValue, imgeEncoded);
+        databaseReference.child("Items").child(itembarcodeValue).setValue(items);
+        databaseReferencecat.child("ItemByCategory").child(itemcategoryValue).child(itembarcodeValue).setValue(items);
 
-        if (!TextUtils.isEmpty(itemnameValue) && !TextUtils.isEmpty(itemcategoryValue) && !TextUtils.isEmpty(itempriceValue)) {
-
-            // TODO
-            Items items = new Items(itemnameValue, itemcategoryValue, itempriceValue, itembarcodeValue, imgeEncoded);
-            databaseReference.child("Items").child(itembarcodeValue).setValue(items);
-            databaseReferencecat.child("ItemByCategory").child(itemcategoryValue).child(itembarcodeValue).setValue(items);
-
-            itemname.setText("");
-            itembarcode.setText("");
-            itemprice.setText("");
-            itembarcode.setText("");
-            Toast.makeText(edititemActivity.this, "Edited", Toast.LENGTH_SHORT).show();
-            new sendRequest().execute();
-            super.onBackPressed();
-            finish();
-        } else {
-            Toast.makeText(edititemActivity.this, "Please Fill all the fields", Toast.LENGTH_SHORT).show();
-        }
+        itemname.setText("");
+        itembarcode.setText("");
+        itemprice.setText("");
+        itembarcode.setText("");
+        Toast.makeText(edititemActivity.this, "Edited", Toast.LENGTH_SHORT).show();
+        new sendRequest().execute();
+        super.onBackPressed();
+        finish();
     }
 
     public class sendRequest extends AsyncTask<String, Void, String> {
