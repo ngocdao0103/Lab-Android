@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".scanItemsActivity"
+    android:orientation="vertical"
+    android:background="@drawable/backgroundgradient">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/allura"
+        android:layout_centerHorizontal="true"
+        android:text="Scan Items"
+        android:textColor="#C1F8B0B0"
+        android:textSize="45sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="30dp">
+        <TableRow tools:ignore="UselessParent">
+                <EditText
+                    android:id="@+id/searchfield"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:background="#11AA9E9E"
+                    android:drawableLeft="@drawable/ic_search_black_24dp"
+                    android:ems="10"
+                    android:hint="Search Items"
+                    android:inputType="textPersonName"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textColorHint="#F7F2F2"
+                    android:textSize="16dp" />
+            <ImageButton
+                android:id="@+id/imageButtonsearch"
+                app:srcCompat="@drawable/ic_camera_alt_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/searchbtnn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/table"
+        android:layout_centerHorizontal="true"
+        android:text="Search"
+        android:textColor="#F7F2F2" />
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/buttonedit"-->
+<!--        android:layout_marginLeft="150dp"-->
+<!--        android:text="Edit"-->
+<!--        android:textColor="#F7F2F2"/>-->
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchbtnn"
+        android:layout_marginTop="10dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</RelativeLayout>

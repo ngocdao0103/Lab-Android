@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.admin.augscan">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-feature android:name="android.hardware.camera" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_ctut_foreground"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ScanCodeActivitysearch"></activity>
+        <activity android:name=".ScanCodeActivity" />
+        <activity android:name=".ScanCodeUsed" />
+        <activity android:name=".ScanCodeActivitydel" />
+        <activity android:name=".viewInventoryActivity" />
+        <activity android:name=".scanItemsActivity" />
+        <activity android:name=".deleteItemsActivity" />
+        <activity android:name=".additemActivity" />
+        <activity android:name=".edititemActivity" />
+        <activity android:name=".dashboardActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".attendancetrackingActivity" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SplashsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ViewImagePopUp"
+            android:theme="@style/AppTheme.Customer"
+            ></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/spinner"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/allura"
+        android:gravity="center"
+        android:text="Product Details"
+        android:textColor="#C1F8B0B0"
+        android:textSize="55dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="16dp" />
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="30dp">
+        <TableRow>
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Product "
+                android:textColor="#C1F8B0B0"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/edititemname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:textColor="#ffff"
+                android:textColorHint="#ffff"
+                android:autofillHints=""  />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Category "
+                android:textColor="#C1F8B0B0"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+            <EditText
+                android:id="@+id/editcategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Category"
+                android:inputType="textPersonName"
+                android:textColor="#ffff"
+                android:textColorHint="#ffff"
+                android:autofillHints="" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Quantity "
+                android:textColor="#C1F8B0B0"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/editprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number"
+                android:textColor="#ffff"
+                android:textColorHint="#ffff"
+                android:autofillHints="" />
+
+            <Spinner
+                android:id="@+id/spinnerUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:textColor="#ffff"
+                android:textColorHint="#ffff"
+                android:textSize="20dp" />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Number "
+                android:textColor="#C1F8B0B0"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/barcodeview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Bar/QR Code Number"
+                android:inputType="textPersonName"
+                android:textColor="#ccc"
+                android:textColorHint="#ccc"
+                android:textSize="15sp"/>
+            <Button
+                android:id="@+id/buttonscan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Scan Code"
+                android:textStyle="italic" />
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Image "
+                android:textColor="#C1F8B0B0"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+            <ImageView
+                android:id="@+id/chooseImg"
+                android:layout_width="170dp"
+                android:layout_height="150dp"
+                android:layout_above="@+id/edititembuttontodatabase"
+                android:layout_centerHorizontal="true"
+                android:text="Choose Img " />
+
+           <TableLayout>
+               <TableRow>
+                   <Button
+                       android:id="@+id/btnChoose"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="+"
+                       android:textSize="20dp" />
+               </TableRow>
+               <TableRow>
+                   <Button
+                       android:id="@+id/btnDelete"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="-"
+                       android:textSize="20dp" />
+               </TableRow>
+           </TableLayout>
+
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/additembuttontodatabase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/table"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Add Item" />
+</RelativeLayout>
