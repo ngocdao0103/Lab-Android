@@ -30,16 +30,22 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashsActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewImagePopUp"
-            android:theme="@style/AppTheme.Customer"
-            ></activity>
+        <activity
+            android:name=".ViewImagePopUp"
+            android:theme="@style/AppTheme.Customer">
+        </activity>
+        <activity
+            android:name=".DialogDeleteActivity"
+            android:theme="@style/AppTheme.Customer">
+        </activity>
     </application>
 
 </manifest>

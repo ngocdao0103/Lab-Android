@@ -23,7 +23,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <TableLayout
-        android:id="@+id/table"
+        android:id="@+id/tableSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -31,51 +31,38 @@
         android:layout_below="@+id/textView"
         android:layout_marginTop="30dp">
         <TableRow tools:ignore="UselessParent">
-            <TextView
-                android:id="@+id/textView3"
+            <EditText
+                android:id="@+id/searchField"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Item to Delete:"
-                android:textColor="#C1F8B0B0"
-                android:textSize="20dp"
-                android:textStyle="bold"  />
-            <TextView
-                android:id="@+id/barcodedelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Code Number"
+                android:layout_height="35dp"
+                android:background="#11AA9E9E"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:ems="10"
+                android:hint="Search Items"
                 android:inputType="textPersonName"
-                android:textColor="#ffff"
-                android:textColorHint="#ffff" />
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textColorHint="#F7F2F2"
+                android:textSize="16dp" />
         </TableRow>
     </TableLayout>
 
     <Button
-        android:id="@+id/buttonscandelete"
+        android:id="@+id/searchBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/table"
+        android:layout_below="@+id/tableSearch"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Scan Bar/QR Code"
-        android:textStyle="italic"
-        tools:layout_editor_absoluteX="114dp"
-        tools:layout_editor_absoluteY="211dp" />
+        android:text="Search" />
 
-    <Button
-        android:id="@+id/deleteItemToTheDatabasebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonscandelete"
-        android:layout_centerHorizontal="true"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewsDelete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchBtn"
+        android:layout_marginTop="10dp">
 
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Delete Item"
-        tools:layout_editor_absoluteX="114dp"
-        tools:layout_editor_absoluteY="211dp" />
+    </android.support.v7.widget.RecyclerView>
+
 
 </RelativeLayout>
