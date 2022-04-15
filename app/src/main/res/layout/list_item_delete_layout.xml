@@ -41,9 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="50dp"
             android:layout_toEndOf="@+id/viewitembarcodename"
-            android:text="TextView"
+            android:text="Textview"
             android:textColor="#ffff" />
 
         <TextView
@@ -61,10 +60,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="31dp"
-            android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@+id/viewitemnamename"
-            android:text="TextView"
+            android:text="Textview"
             android:textColor="#ffff" />
 
         <TextView
@@ -85,7 +83,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="40dp"
             android:layout_toEndOf="@+id/viewitempricename"
-            android:text="TextView"
+            android:text="Textview"
             android:textColor="#ffff" />
 
         <TextView
@@ -103,10 +101,69 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="50dp"
             android:layout_marginTop="60dp"
             android:layout_toEndOf="@+id/viewitemcategoryname"
-            android:text="TextView"
+            android:text="Textview"
+            android:textColor="#ffff" />
+
+        <TextView
+            android:id="@+id/labelItemYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Item Year"
+            android:textColor="#EFCB5D"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/viewItemYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="80dp"
+            android:layout_toEndOf="@+id/labelItemYear"
+            android:text="Textview"
+            android:textColor="#ffff" />
+
+        <TextView
+            android:id="@+id/labelItemOrigin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Item Origin"
+            android:textColor="#EFCB5D"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/viewItemOrigin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="100dp"
+            android:layout_toEndOf="@+id/labelItemOrigin"
+            android:text="Textview"
+            android:textColor="#ffff" />
+
+        <TextView
+            android:id="@+id/labelItemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:text="Item Status"
+            android:textColor="#EFCB5D"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/viewItemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="120dp"
+            android:layout_toEndOf="@+id/labelItemStatus"
+            android:text="Textview"
             android:textColor="#ffff" />
 
 
@@ -116,7 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            android:text="DELETE" />
+            android:text="delete" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

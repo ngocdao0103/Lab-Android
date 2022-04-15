@@ -24,11 +24,10 @@
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
             android:gravity="center"
-            android:textSize="16sp"
-            android:background="@android:color/darker_gray"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/viewitembarcodename"
@@ -113,20 +112,79 @@
             android:text="TextView"
             android:textColor="#ffff" />
 
+        <TextView
+            android:id="@+id/labelItemYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Item Year"
+            android:textColor="#EFCB5D"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/viewItemYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="80dp"
+            android:layout_toEndOf="@+id/labelItemYear"
+            android:text="Textview"
+            android:textColor="#ffff" />
+
+        <TextView
+            android:id="@+id/labelItemOrigin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Item Origin"
+            android:textColor="#EFCB5D"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/viewItemOrigin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="100dp"
+            android:layout_toEndOf="@+id/labelItemOrigin"
+            android:text="Textview"
+            android:textColor="#ffff" />
+
+        <TextView
+            android:id="@+id/labelItemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:text="Item Status"
+            android:textColor="#EFCB5D"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/viewItemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="120dp"
+            android:layout_toEndOf="@+id/labelItemStatus"
+            android:text="Textview"
+            android:textColor="#ffff" />
+
         <Button
             android:id="@+id/buttonedit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="40dp"
-            android:text="Edit"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginStart="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:text="Edit" />
 
         <Button
             android:id="@+id/buttonView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp"
             android:layout_alignParentEnd="true"
             android:text="img" />
 

@@ -26,7 +26,7 @@ public class ScanCodeActivitydel extends AppCompatActivity implements ZXingScann
     @Override
     public void handleResult(Result result) {
 
-        deleteItemsActivity.resultdeleteview.setText(result.getText());
+        deleteItemsActivity.resultDeleteView.setText(result.getText());
 
         onBackPressed();
     }
@@ -36,13 +36,6 @@ public class ScanCodeActivitydel extends AppCompatActivity implements ZXingScann
         super.onPause();
         scannerView.stopCamera();
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        scannerView.setResultHandler(this);
-//        scannerView.startCamera();
-//    }
 
     @Override
     protected void onPostResume() {

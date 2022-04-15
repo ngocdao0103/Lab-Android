@@ -9,11 +9,11 @@ import android.support.annotation.NonNull;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,22 +35,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class additemActivity extends AppCompatActivity {
-    private EditText itemname,itemcategory,itemprice;
-    private TextView itembarcode;
-    private Spinner spin;
-    private FirebaseAuth firebaseAuth;
-    private String idText;
-    private String finaluser;
-    private String resultemail;
-    private  String imgeEncoded;
-    public static TextView resulttextview;
-    Button scanbutton, additemtodatabase,btndelete;
-    DatabaseReference databaseReference;
-    DatabaseReference databaseReferencecat;
-
-    // TODO add img
     private Button btnChoose;
     private ImageView imageView;
+    private EditText itemName, itemPrice, itemYear, itemOrigin, itemStatus;
+    private TextView itemBarcode;
+    private Spinner spin, spinnerCategory, spinnerHc;
+    private FirebaseAuth firebaseAuth;
+    private String idText;
+    private String finalUser;
+    private String resultEmail;
+    private  String imgEncoded;
+    public static TextView resulttextview;
+    Button scanButton, addItemToDatabase, btnDelete;
+    DatabaseReference databaseReference;
+    DatabaseReference databaseReferenceCat;
     ProgressDialog pd;
     Bitmap selectedBitmap;
 
@@ -59,43 +57,54 @@ public class additemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_additem);
         firebaseAuth = FirebaseAuth.getInstance();
-
         final FirebaseUser users = firebaseAuth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        databaseReferencecat = FirebaseDatabase.getInstance().getReference("Users");
-
+        databaseReferenceCat = FirebaseDatabase.getInstance().getReference("Users");
         resulttextview = findViewById(R.id.barcodeview);
-        additemtodatabase = findViewById(R.id.additembuttontodatabase);
-        scanbutton = findViewById(R.id.buttonscan);
-        itemname = findViewById(R.id.edititemname);
-        itemcategory= findViewById(R.id.editcategory);
-        itemprice = findViewById(R.id.editprice);
-        itembarcode= findViewById(R.id.barcodeview);
-        finaluser=users.getEmail();
-        resultemail = finaluser.replace(".","");
-        scanbutton.setOnClickListener(new View.OnClickListener() {
+        addItemToDatabase = findViewById(R.id.additembuttontodatabase);
+        scanButton = findViewById(R.id.buttonscan);
+        itemName = findViewById(R.id.edititemname);
+        itemPrice = findViewById(R.id.editprice);
+        itemYear = findViewById(R.id.textYear);
+        itemOrigin = findViewById(R.id.textOrigin);
+        itemStatus = findViewById(R.id.textStatus);
+        itemBarcode = findViewById(R.id.barcodeview);
+        if (users != null) {
+            finalUser =users.getEmail();
+            resultEmail = finalUser.replace(".","");
+        }
+        scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ScanCodeActivity.class));
             }
         });
-
-        additemtodatabase.setOnClickListener(new View.OnClickListener() {
+        addItemToDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addItem();
             }
         });
-
-        String[] spinnerUnit = { "Pcs","l", "ml", "Kg", "g", "Other" };
+        String[] spinnerUnit = { "g","ml", "ống", "đĩa", "bình", "cái", "chai", "Khác" };
+        String[] spinnerCate = {"Thiết Bị", "Hóa Chất"};
+        String[] spinnerHC = {"Rắn", "Lỏng", "Khí"};
+        spinnerCategory = findViewById(R.id.spinnerCategory);
+        spinnerHc = findViewById(R.id.spinnerHC);
         spin = findViewById(R.id.spinnerUnit);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerUnit);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(adapter);
 
+        ArrayAdapter<String> adapterCategory = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerCate);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapterCategory);
+
+        ArrayAdapter<String> adapterHC = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerHC);
+        adapterHC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerHc.setAdapter(adapterHC);
+
         pd = new ProgressDialog(this);
         pd.setMessage("Uploading....");
-
         btnChoose = findViewById(R.id.btnChoose);
         imageView = findViewById(R.id.chooseImg);
         btnChoose.setOnClickListener(new View.OnClickListener() {
@@ -104,20 +113,33 @@ public class additemActivity extends AppCompatActivity {
                 chooseImage();
             }
         });
-
-        btndelete = findViewById(R.id.btnDelete);
-        btndelete.setOnClickListener(new View.OnClickListener() {
+        btnDelete = findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imageView.setImageBitmap(null);
                 selectedBitmap = null;
             }
         });
-
-
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                System.out.println(selectedItem);
+                if(selectedItem.equals("Hóa Chất")) {
+                    spinnerHc.setVisibility(View.VISIBLE);
+                } else {
+                    spinnerHc.setVisibility(View.GONE);
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                spinnerHc.setVisibility(View.GONE);
+            }
+        });
     }
 
-    // TODO add img
     private void chooseImage() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -139,15 +161,12 @@ public class additemActivity extends AppCompatActivity {
         }
     }
 
-    // adding item to database
     public  void addItem(){
-        //TODO
-        idText = itembarcode.getText().toString();
-        Query firebaseSearchQuery = databaseReference.child(resultemail).child("Items").child(idText);
-
+        idText = itemBarcode.getText().toString();
+        Query firebaseSearchQuery = databaseReference.child(resultEmail).child("Items").child(idText);
         if (idText.isEmpty()) {
-            itembarcode.setError("It's Empty");
-            itembarcode.requestFocus();
+            itemBarcode.setError("It's Empty");
+            itemBarcode.requestFocus();
         } else {
             firebaseSearchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -159,23 +178,18 @@ public class additemActivity extends AppCompatActivity {
                     }
                 }
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
+                public void onCancelled(@NonNull DatabaseError databaseError) { }
             });
         }
     }
 
-    // logout below
     private void Logout()
     {
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(additemActivity.this,LoginActivity.class));
         Toast.makeText(additemActivity.this,"LOGOUT SUCCESSFUL", Toast.LENGTH_SHORT).show();
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -185,36 +199,54 @@ public class additemActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case  R.id.logoutMenu:{
-                Logout();
-            }
+        if (item.getItemId() == R.id.logoutMenu) {
+            Logout();
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void saveItem(boolean isRun) {
         if (isRun) {
-            String itemnameValue = itemname.getText().toString();
-            String itemcategoryValue = itemcategory.getText().toString();
-            String itempriceValue = itemprice.getText().toString() + " " + spin.getSelectedItem().toString();
+            String itemNameValue = itemName.getText().toString();
+            String itemCategoryValue;
+            String itemYearValue = itemYear.getText().toString();
+            String itemStatusValue = itemStatus.getText().toString();
+            String itemOriginValue = itemOrigin.getText().toString();
+            String itemPriceValue = itemPrice.getText().toString() + " " + spin.getSelectedItem().toString();
+            if (spinnerCategory.getSelectedItem().toString().equals("Hóa Chất")){
+                itemCategoryValue = spinnerCategory.getSelectedItem().toString() + "-" + spinnerHc.getSelectedItem().toString();
+            } else {
+                itemCategoryValue = spinnerCategory.getSelectedItem().toString();
+            }
             if (selectedBitmap != null) {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 30, byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream .toByteArray();
-                imgeEncoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                imgEncoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
             } else {
-                imgeEncoded = null;
+                imgEncoded = null;
             }
-            Items items = new Items(itemnameValue,itemcategoryValue,itempriceValue,idText, imgeEncoded);
-            databaseReference.child(resultemail).child("Items").child(idText).setValue(items);
-            databaseReferencecat.child(resultemail).child("ItemByCategory").child(itemcategoryValue).child(idText).setValue(items);
-            itemname.setText("");
-            itembarcode.setText("");
-            itemprice.setText("");
-            itembarcode.setText("");
+            Items items = new Items(
+                    itemNameValue,
+                    itemCategoryValue,
+                    itemPriceValue,
+                    idText,
+                    imgEncoded,
+                    itemYearValue,
+                    itemOriginValue,
+                    itemStatusValue
+            );
+            databaseReference.child(resultEmail).child("Items").child(idText).setValue(items);
+            databaseReferenceCat.child(resultEmail).child("ItemByCategory").child(itemCategoryValue).child(idText).setValue(items);
+            itemName.setText("");
+            itemBarcode.setText("");
+            itemPrice.setText("");
+            itemBarcode.setText("");
+            itemYear.setText("");
+            itemOrigin.setText("");
+            itemStatus.setText("");
             imageView.setImageBitmap(null);
-            Toast.makeText(additemActivity.this,itemnameValue+"---Added",Toast.LENGTH_SHORT).show();
+            Toast.makeText(additemActivity.this,itemNameValue+"---Added",Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(additemActivity.this,"Bar/Qr already exists",Toast.LENGTH_SHORT).show();
         }

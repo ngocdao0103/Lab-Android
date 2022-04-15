@@ -15,35 +15,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         auth = FirebaseAuth.getInstance();
-
         FirebaseUser user = auth.getCurrentUser();
-
         if(user != null){
             finish();
             startActivity(new Intent(this, dashboardActivity.class));
         }
-
     }
 
-
-    public void login (View view)
-    {
-
-        startActivity(new Intent(this,LoginActivity.class));
-//        String TextClassname = classname.getText().toString();
-//        // starting our intent
-//        Intent classintent = new Intent(this,SecondActivity.class);
-//        classintent.putExtra("Classname",TextClassname);
-//        startActivityForResult(classintent,request_code);
-    }
+    public void login (View view) { startActivity(new Intent(this,LoginActivity.class)); }
     public void register (View view)
     {
         startActivity(new Intent(this,RegisterActivity.class));
     }
-
-    public void attendancetracking (View view)
-    {
-        startActivity(new Intent(this,attendancetrackingActivity.class));
-    }
+    public void atTenDanceTracking(View view) { startActivity(new Intent(this,attendancetrackingActivity.class)); }
 }
 

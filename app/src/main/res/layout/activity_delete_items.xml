@@ -17,7 +17,7 @@
         android:gravity="center"
         android:text="Delete Items"
         android:textColor="#C1F8B0B0"
-        android:textSize="65dp"
+        android:textSize="65sp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="97dp"
         tools:layout_editor_absoluteY="16dp" />
@@ -31,19 +31,14 @@
         android:layout_below="@+id/textView"
         android:layout_marginTop="30dp">
         <TableRow tools:ignore="UselessParent">
-            <EditText
-                android:id="@+id/searchField"
+            <Spinner
+                android:id="@+id/spinnerCategory"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:background="#11AA9E9E"
-                android:drawableLeft="@drawable/ic_search_black_24dp"
-                android:ems="10"
-                android:hint="Search Items"
-                android:inputType="textPersonName"
-                android:textAlignment="center"
-                android:textColor="#fff"
-                android:textColorHint="#F7F2F2"
-                android:textSize="16dp" />
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                android:textColor="#ffff"
+                android:textColorHint="#ffff"
+                android:textSize="20sp" />
         </TableRow>
     </TableLayout>
 
@@ -52,17 +47,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tableSearch"
+        android:layout_marginTop="20sp"
         android:layout_centerHorizontal="true"
         android:text="Search" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewsDelete"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/searchBtn"
         android:layout_marginTop="10dp">
-
     </android.support.v7.widget.RecyclerView>
-
-
 </RelativeLayout>

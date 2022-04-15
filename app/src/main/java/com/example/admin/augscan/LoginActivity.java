@@ -16,15 +16,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText Email;
     private EditText Password;
     private Button Login;
-    private TextView passwordreset;
-    private EditText passwordresetemail;
-    private EditText passnot;
+    private TextView passwordReset;
+    private EditText passwordResetEmail;
+    private EditText passNot;
     private ProgressBar progressBar;
 
     private FirebaseAuth auth;
@@ -38,16 +37,13 @@ public class LoginActivity extends AppCompatActivity {
         Email = (EditText) findViewById(R.id.emailSignIn);
         Password = (EditText) findViewById(R.id.password);
         Login = (Button) findViewById(R.id.Login);
-
-        passwordreset = findViewById(R.id.forgotpassword);
-        passwordresetemail = findViewById(R.id.emailSignIn);
-        passnot = findViewById(R.id.password);
+        passwordReset = findViewById(R.id.forgotpassword);
+        passwordResetEmail = findViewById(R.id.emailSignIn);
+        passNot = findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.progressbars);
         progressBar.setVisibility(View.GONE);
         auth = FirebaseAuth.getInstance();
         processDialog = new ProgressDialog(this);
-
-
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,25 +53,24 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
-        passwordreset.setOnClickListener(new View.OnClickListener() {
+        passwordReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetpasword();
+                resetPassword();
             }
         });
     }
 
-    public void resetpasword(){
-        final String resetemail = passwordresetemail.getText().toString();
+    public void resetPassword() {
+        final String resetEmail = passwordResetEmail.getText().toString();
 
-        if (resetemail.isEmpty()) {
-            passwordresetemail.setError("It's empty");
-            passwordresetemail.requestFocus();
+        if (resetEmail.isEmpty()) {
+            passwordResetEmail.setError("It's empty");
+            passwordResetEmail.requestFocus();
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-        auth.sendPasswordResetEmail(resetemail)
-
+        auth.sendPasswordResetEmail(resetEmail)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -84,26 +79,23 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(LoginActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                         }
-
                         progressBar.setVisibility(View.GONE);
                     }
                 });
     }
 
 
-
-
-    public void validate(String userEmail, String userPassword){
-        final String resetemail = passwordresetemail.getText().toString();
-        final String resetpass = passnot.getText().toString();
-        if (resetemail.isEmpty()) {
-            passwordresetemail.setError("It's empty");
-            passwordresetemail.requestFocus();
+    public void validate(String userEmail, String userPassword) {
+        final String resetEmail = passwordResetEmail.getText().toString();
+        final String resetPass = passNot.getText().toString();
+        if (resetEmail.isEmpty()) {
+            passwordResetEmail.setError("It's empty");
+            passwordResetEmail.requestFocus();
             return;
         }
-        if (resetpass.isEmpty()) {
-            passnot.setError("It's empty");
-            passnot.requestFocus();
+        if (resetPass.isEmpty()) {
+            passNot.setError("It's empty");
+            passNot.requestFocus();
             return;
         }
         processDialog.setMessage("................Please Wait.............");
@@ -112,13 +104,12 @@ public class LoginActivity extends AppCompatActivity {
         auth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     processDialog.dismiss();
                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, dashboardActivity.class));
-                }
-                else{
-                    Toast.makeText(LoginActivity.this,"Login Failed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     processDialog.dismiss();
                 }
             }

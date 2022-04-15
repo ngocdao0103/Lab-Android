@@ -27,15 +27,14 @@ public class DialogDeleteActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_delete);
-
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser users = firebaseAuth.getCurrentUser();
-        String finaluser = users.getEmail();
-        String resultemail = finaluser.replace(".","");
-        mdatabaseReference = FirebaseDatabase.getInstance().getReference("Users").child(resultemail);
+        String finalUser = users.getEmail();
+        String resultEmail = finalUser.replace(".","");
+        mdatabaseReference = FirebaseDatabase.getInstance().getReference("Users").child(resultEmail);
         text = findViewById(R.id.textView);
         Intent n = getIntent();
-        getItemBarcode = n.getStringExtra("itembarcode");
+        getItemBarcode = n.getStringExtra("itemBarcode");
         Query firebaseSearchQuery = mdatabaseReference.child("Items").child(getItemBarcode);
         firebaseSearchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
@@ -48,11 +47,8 @@ public class DialogDeleteActivity extends Activity {
                     text.setText("delete failed");
                 }
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
 }

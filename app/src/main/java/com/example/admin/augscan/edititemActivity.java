@@ -12,9 +12,9 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,19 +51,19 @@ import java.util.Iterator;
 import javax.net.ssl.HttpsURLConnection;
 
 public class edititemActivity extends AppCompatActivity {
-    private EditText itemname, itemcategory, itemprice;
+    private EditText itemName, itemCategory, itemPrice, itemYear, itemOrigin, itemStatus;
     private TextView itembarcode;
     private ImageView img;
-    private Button btnChoose,btndelete;
+    private Button btnChoose, btnDelete;
     private FirebaseAuth firebaseAuth;
-    public static TextView resulttextview;
-    private Spinner spin;
-    Button edititembuttontodatabase;
+    public static TextView resultTextView;
+    private Spinner spin, spinnerCategory, spinnerHc;
+    Button editItemButtonToDatabase;
     DatabaseReference databaseReference;
-    DatabaseReference databaseReferencecat;
+    DatabaseReference databaseReferenceCat;
     private String itemNameBefore, itemCategoryBefore, itemPriceBefore, itemBarcode;
     public String itemNameAfter, itemCategoryAfter, itemPriceAfter;
-    private String unitText;
+    private String unitText, categoryText, hcText;
     Bitmap selectedBitmap;
     private String url;
     @Override
@@ -72,36 +72,53 @@ public class edititemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edititem);
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser users = firebaseAuth.getCurrentUser();
-       //  databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        // databaseReferencecat = FirebaseDatabase.getInstance().getReference("Users");
-        String finaluser = users.getEmail();
-        String resultemail = finaluser.replace(".","");
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(resultemail);
-        databaseReferencecat = FirebaseDatabase.getInstance().getReference("Users").child(resultemail);
+        String finalUser = users.getEmail();
+        String resultEmail = finalUser.replace(".","");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(resultEmail);
+        databaseReferenceCat = FirebaseDatabase.getInstance().getReference("Users").child(resultEmail);
 
-        resulttextview = findViewById(R.id.barcodeview);
-        edititembuttontodatabase = findViewById(R.id.edititembuttontodatabase);
-        itemname = findViewById(R.id.edititemname);
-        itemcategory = findViewById(R.id.editcategory);
-        itemprice = findViewById(R.id.editprice);
+        resultTextView = findViewById(R.id.barcodeview);
+        editItemButtonToDatabase = findViewById(R.id.edititembuttontodatabase);
+        itemName = findViewById(R.id.edititemname);
+        itemPrice = findViewById(R.id.editprice);
+        itemYear = findViewById(R.id.textYear);
+        itemOrigin = findViewById(R.id.textOrigin);
+        itemStatus = findViewById(R.id.textStatus);
         itembarcode = findViewById(R.id.barcodeview);
         spin = findViewById(R.id.spinnerUnitEdit);
+        spinnerCategory = findViewById(R.id.spinnerCategory);
+        spinnerHc = findViewById(R.id.spinnerHC);
         img = findViewById(R.id.chooseImg);
         btnChoose = findViewById(R.id.btnChoose);
-        btndelete = findViewById(R.id.btnDelete);
+        btnDelete = findViewById(R.id.btnDelete);
 
         Intent n = getIntent();
-        // TODO get value
-        String getItemBarCode = n.getStringExtra("itembarcode");
-        String getItemName = n.getStringExtra("itemname");
-        String getItemCategory = n.getStringExtra("itemcategory");
-        String getItemPrice = n.getStringExtra("itemprice");
+        String getItemBarCode = n.getStringExtra("itemBarcode");
+        String getItemName = n.getStringExtra("itemName");
+        String getItemCategory = n.getStringExtra("itemCategory");
+        String getItemPrice = n.getStringExtra("itemPrice");
+        String getItemYear = n.getStringExtra("itemYear");
+        String getItemOrigin = n.getStringExtra("itemOrigin");
+        String getItemStatus = n.getStringExtra("itemStatus");
         String[] parts = getItemPrice.split("\\s", 0);
-        unitText = parts[1];
+        String[] cateText = getItemCategory.split("-");
+        if (cateText.length == 2 || parts.length == 2) {
+            categoryText = cateText[0];
+            hcText = cateText[1];
+            itemPrice.setText(parts[0]);
+            unitText = parts[1];
+            spinnerHc.setVisibility(View.GONE);
+
+        } else {
+            categoryText = cateText[0];
+            unitText = parts[0].trim();
+            itemPrice.setText(null);
+        }
         itembarcode.setText(getItemBarCode);
-        itemname.setText(getItemName);
-        itemcategory.setText(getItemCategory);
-        itemprice.setText(parts[0]);
+        itemName.setText(getItemName);
+        itemYear.setText(getItemYear);
+        itemOrigin.setText(getItemOrigin);
+        itemStatus.setText(getItemStatus);
 
         Query firebaseSearchQuery = databaseReference.child("Items").child(getItemBarCode).child("itemimg");
         firebaseSearchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -113,19 +130,15 @@ public class edititemActivity extends AppCompatActivity {
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     img.setImageBitmap(decodedByte);
                     url = Img;
-                } else if (!dataSnapshot.exists()){
-
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
 
 
-        btndelete.setOnClickListener(new View.OnClickListener() {
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 img.setImageBitmap(null);
@@ -134,13 +147,11 @@ public class edititemActivity extends AppCompatActivity {
             }
         });
 
+        itemNameBefore = getItemName;
+        itemCategoryBefore = getItemCategory;
+        itemPriceBefore = itemPrice.getText().toString() + " " + unitText;
+        itemBarcode = getItemBarCode;
 
-        itemNameBefore = itemname.getText().toString();
-        itemCategoryBefore = itemcategory.getText().toString();
-        itemPriceBefore = itemprice.getText().toString() + " " + unitText;
-        itemBarcode = itembarcode.getText().toString();
-
-        // TODO load spinner
         String[] spinnerUnit = { "g","ml", "ống", "đĩa", "bình", "cái", "chai", "Khác" };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerUnit);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -149,10 +160,29 @@ public class edititemActivity extends AppCompatActivity {
             int spinnerPosition = adapter.getPosition(unitText);
             spin.setSelection(spinnerPosition);
         }
-        edititembuttontodatabase.setOnClickListener(new View.OnClickListener() {
+
+        String[] spinnerCate = {"Thiết Bị", "Hóa Chất"};
+        ArrayAdapter<String> adapterCategory = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerCate);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapterCategory);
+        if (categoryText != null) {
+            int spinnerPosition = adapterCategory.getPosition(categoryText);
+            spinnerCategory.setSelection(spinnerPosition);
+        }
+
+        String[] spinnerHC = {"Rắn", "Lỏng", "Khí"};
+        ArrayAdapter<String> adapterHC = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerHC);
+        adapterHC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerHc.setAdapter(adapterHC);
+        if(hcText != null) {
+            int spinnerPosition = adapterHC.getPosition(hcText);
+            spinnerHc.setSelection(spinnerPosition);
+        }
+
+        editItemButtonToDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                additem();
+                addItem();
             }
         });
         btnChoose.setOnClickListener(new View.OnClickListener() {
@@ -161,13 +191,28 @@ public class edititemActivity extends AppCompatActivity {
                 chooseImage();
             }
         });
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if(selectedItem.equals("Hóa Chất")) {
+                    spinnerHc.setVisibility(View.VISIBLE);
+                } else {
+                    spinnerHc.setVisibility(View.GONE);
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                spinnerHc.setVisibility(View.GONE);
+            }
+        });
     }
 
-    // TODO add img
     private void chooseImage() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickPhoto , 200);//one can be replaced with any action code
+        startActivityForResult(pickPhoto , 200);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -185,44 +230,63 @@ public class edititemActivity extends AppCompatActivity {
         }
     }
 
-    public void additem() {
-        //TODO add log history
-        itemNameAfter  = itemname.getText().toString();
-        itemCategoryAfter = itemcategory.getText().toString();
-        itemPriceAfter = itemprice.getText().toString() + " " + spin.getSelectedItem().toString();
+    public void addItem() {
+        String itemNameValue = itemName.getText().toString();
+        String itemCategoryValue;
+        if (spinnerCategory.getSelectedItem().toString().equals("Hóa Chất")){
+            itemCategoryValue = spinnerCategory.getSelectedItem().toString() + "-" + spinnerHc.getSelectedItem().toString();
+        } else {
+            itemCategoryValue = spinnerCategory.getSelectedItem().toString();
+        }
+        String itemPriceValue = itemPrice.getText().toString() + " " + spin.getSelectedItem().toString();
+        String itemBarcodeValue = itembarcode.getText().toString();
+        String itemYearValue = itemYear.getText().toString();
+        String itemStatusValue = itemStatus.getText().toString();
+        String itemOriginValue = itemOrigin.getText().toString();
 
-        String itemnameValue = itemname.getText().toString();
-        String itemcategoryValue = itemcategory.getText().toString();
-        String itempriceValue = itemprice.getText().toString() + " " + spin.getSelectedItem().toString();
-        String itembarcodeValue = itembarcode.getText().toString();
+        itemNameAfter  = itemNameValue;
+        itemCategoryAfter = itemCategoryValue;
+        itemPriceAfter = itemPriceValue;
 
-        if (itembarcodeValue.isEmpty()) {
+        if (itemBarcodeValue.isEmpty()) {
             itembarcode.setError("It's Empty");
             itembarcode.requestFocus();
             return;
         }
 
-        String imgeEncoded;
+        String imgEncoded;
         if (selectedBitmap != null) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             selectedBitmap.compress(Bitmap.CompressFormat.JPEG, 30, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream .toByteArray();
-            imgeEncoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            imgEncoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         } else {
             if (unitText != null) {
-                imgeEncoded = url;
+                imgEncoded = url;
             } else {
-                imgeEncoded = null;
+                imgEncoded = null;
             }
         }
-        Items items = new Items(itemnameValue, itemcategoryValue, itempriceValue, itembarcodeValue, imgeEncoded);
-        databaseReference.child("Items").child(itembarcodeValue).setValue(items);
-        databaseReferencecat.child("ItemByCategory").child(itemcategoryValue).child(itembarcodeValue).setValue(items);
+        Items items = new Items(
+                itemNameValue,
+                itemCategoryValue,
+                itemPriceValue,
+                itemBarcodeValue,
+                imgEncoded,
+                itemYearValue,
+                itemOriginValue,
+                itemStatusValue
+        );
+        databaseReference.child("Items").child(itemBarcodeValue).setValue(items);
+        databaseReferenceCat.child("ItemByCategory").child(itemCategoryValue).child(itemBarcodeValue).setValue(items);
 
-        itemname.setText("");
+        itemName.setText("");
         itembarcode.setText("");
-        itemprice.setText("");
+        itemPrice.setText("");
         itembarcode.setText("");
+        itemYear.setText("");
+        itemOrigin.setText("");
+        itemStatus.setText("");
         Toast.makeText(edititemActivity.this, "Edited", Toast.LENGTH_SHORT).show();
         new sendRequest().execute();
         super.onBackPressed();
@@ -236,12 +300,12 @@ public class edititemActivity extends AppCompatActivity {
         protected String doInBackground(String... arg0) {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
-                String currentDateandTime = sdf.format(new Date());
+                String currentDateAndTime = sdf.format(new Date());
 
                 URL url = new URL("https://script.google.com/macros/s/AKfycbxKix31zwEInK1w6J-QbnkPSTqcSYAbS0jwJCcoBrpeXKEYss2Oyi1WcpztEksuvwHw/exec");
                 JSONObject postDataParams = new JSONObject();
 
-                postDataParams.put("Time", currentDateandTime);
+                postDataParams.put("Time", currentDateAndTime);
 
                 postDataParams.put("Number_Barcode", itemBarcode);
 
@@ -288,36 +352,21 @@ public class edititemActivity extends AppCompatActivity {
                 return new String("Exception: " + e.getMessage());
             }
         }
-
-
-
-        @Override
-        protected void onPostExecute(String result) {
-//            Toast.makeText(getApplicationContext(), result,
-//                    Toast.LENGTH_LONG).show();
-        }
     }
     public String getPostDataString(JSONObject params) throws Exception {
-
         StringBuilder result = new StringBuilder();
         boolean first = true;
-
         Iterator<String> itr = params.keys();
-
         while(itr.hasNext()){
-
             String key= itr.next();
             Object value = params.get(key);
-
             if (first)
                 first = false;
             else
                 result.append("&");
-
             result.append(URLEncoder.encode(key, "UTF-8"));
             result.append("=");
             result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
         }
         return result.toString();
     }

@@ -14,7 +14,7 @@ import android.widget.ImageView;
 public class SplashsActivity extends AppCompatActivity {
 
     private ImageView logo;
-    private static int splashTimeOut=2000;
+    private static int spLashTimeOut =2000;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,10 +29,10 @@ public class SplashsActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        },splashTimeOut);
+        }, spLashTimeOut);
 
-        Animation myanim = AnimationUtils.loadAnimation(this,R.anim.mysplashanimation);
+        Animation mYanIm = AnimationUtils.loadAnimation(this,R.anim.mysplashanimation);
 
-        logo.startAnimation(myanim);
+        logo.startAnimation(mYanIm);
     }
 }

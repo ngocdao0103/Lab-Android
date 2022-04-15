@@ -26,46 +26,40 @@ public class ViewImagePopUp extends Activity {
     DatabaseReference mdatabaseReference;
     private FirebaseAuth firebaseAuth;
     private Items item;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.popwindow);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int width = dm.widthPixels;
         int heigh = dm.heightPixels;
+        getWindow().setLayout((int) (width * 8), (int) (heigh * .6));
 
-        getWindow().setLayout((int)(width*8),(int)(heigh*.6));
-
-        // TODO get img
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser users = firebaseAuth.getCurrentUser();
-        String finaluser = users.getEmail();
-        String resultemail = finaluser.replace(".","");
-        mdatabaseReference = FirebaseDatabase.getInstance().getReference("Users").child(resultemail);
+        String finalUser = users.getEmail();
+        String resultEmail = finalUser.replace(".", "");
+        mdatabaseReference = FirebaseDatabase.getInstance().getReference("Users").child(resultEmail);
         img = findViewById(R.id.imgPicture);
         Intent n = getIntent();
-        String getItemBarcode = n.getStringExtra("itembarcode");
-        Query firebaseSearchQuery = mdatabaseReference.child("Items").child(getItemBarcode).child("itemimg");
+        String getItemBarcode = n.getStringExtra("itemBarcode");
+        Query firebaseSearchQuery = mdatabaseReference.child("Items").child(getItemBarcode).child("itemImg");
         firebaseSearchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String Img = dataSnapshot.getValue(String.class);
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     byte[] decodedString = Base64.decode(Img, Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     img.setImageBitmap(decodedByte);
-                } else if (!dataSnapshot.exists()){
-
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

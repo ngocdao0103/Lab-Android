@@ -26,7 +26,7 @@ public class ScanCodeActivitysearch extends AppCompatActivity implements ZXingSc
     @Override
     public void handleResult(Result result) {
 
-        scanItemsActivity.resultsearcheview.setText(result.getText());
+        scanItemsActivity.resultSearchView.setText(result.getText());
 
         onBackPressed();
     }
@@ -36,13 +36,6 @@ public class ScanCodeActivitysearch extends AppCompatActivity implements ZXingSc
         super.onPause();
         scannerView.stopCamera();
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        scannerView.setResultHandler(this);
-//        scannerView.startCamera();
-//    }
 
     @Override
     protected void onPostResume() {

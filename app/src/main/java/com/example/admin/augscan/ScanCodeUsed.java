@@ -26,7 +26,7 @@ public class ScanCodeUsed extends AppCompatActivity implements ZXingScannerView.
     @Override
     public void handleResult(Result result) {
 
-        attendancetrackingActivity.resulttextview.setText(result.getText());
+        attendancetrackingActivity.resultTextView.setText(result.getText());
         onBackPressed();
     }
 
@@ -35,13 +35,6 @@ public class ScanCodeUsed extends AppCompatActivity implements ZXingScannerView.
         super.onPause();
         scannerView.stopCamera();
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        scannerView.setResultHandler(this);
-//        scannerView.startCamera();
-//    }
 
     @Override
     protected void onPostResume() {

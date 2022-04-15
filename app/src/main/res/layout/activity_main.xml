@@ -70,7 +70,7 @@
         android:layout_marginBottom="-120dp"
         android:background="#11000000"
         android:hint="Attendance Tracking"
-        android:onClick="attendancetracking"
+        android:onClick="atTenDanceTracking"
         android:textColorHint="#FFFF"
         android:textSize="18dp" />
 </RelativeLayout>

@@ -1,15 +1,9 @@
 package com.example.admin.augscan;
 
 public class User {
-    public String deptname, email;
-
-    public User(){
-
-    }
-
+    public String deptName, email;
     public User(String name, String email) {
-        this.deptname = name;
+        this.deptName = name;
         this.email = email;
-
     }
 }
