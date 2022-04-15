@@ -216,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="Originating"
+                        android:text="Status"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                         android:textColor="#C1F8B0B0"
                         android:textSize="20sp"

@@ -74,16 +74,6 @@
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/editcategory"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:autofillHints=""-->
-<!--                        android:hint="Category"-->
-<!--                        android:inputType="textPersonName"-->
-<!--                        android:textColor="#ffff"-->
-<!--                        android:textColorHint="#ffff" />-->
-
                     <Spinner
                         android:id="@+id/spinnerCategory"
                         android:layout_width="wrap_content"

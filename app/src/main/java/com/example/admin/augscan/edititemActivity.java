@@ -102,15 +102,17 @@ public class edititemActivity extends AppCompatActivity {
         String getItemStatus = n.getStringExtra("itemStatus");
         String[] parts = getItemPrice.split("\\s", 0);
         String[] cateText = getItemCategory.split("-");
-        if (cateText.length == 2 || parts.length == 2) {
+        if (cateText.length == 2) {
             categoryText = cateText[0];
             hcText = cateText[1];
+        } else {
+            categoryText = cateText[0];
+        }
+        if (parts.length == 2) {
             itemPrice.setText(parts[0]);
             unitText = parts[1];
             spinnerHc.setVisibility(View.GONE);
-
         } else {
-            categoryText = cateText[0];
             unitText = parts[0].trim();
             itemPrice.setText(null);
         }
@@ -120,7 +122,7 @@ public class edititemActivity extends AppCompatActivity {
         itemOrigin.setText(getItemOrigin);
         itemStatus.setText(getItemStatus);
 
-        Query firebaseSearchQuery = databaseReference.child("Items").child(getItemBarCode).child("itemimg");
+        Query firebaseSearchQuery = databaseReference.child("Items").child(getItemBarCode).child("itemImg");
         firebaseSearchQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
