@@ -145,6 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Bar/QR Code Number"
+                        android:enabled="false"
                         android:textColor="#ccc"
                         android:textColorHint="#ccc"
                         android:textSize="15sp" />
