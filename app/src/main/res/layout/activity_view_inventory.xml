@@ -10,52 +10,65 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/viewInventory"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:text="No of Items = "
-            android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            tools:ignore="UselessParent">
+            <TableRow>
+                <TextView
+                    android:id="@+id/viewInventory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:text="No of Items = "
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/totalnoitem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textColor="#FC0703"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <ImageButton
+                    android:id="@+id/exportExcel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="#00FFFFFF"
+                    android:layout_column="3"
+                    app:srcCompat="@android:drawable/stat_sys_download"
+                    tools:ignore="VectorDrawableCompat" />
 
-        <TextView
-            android:id="@+id/totalnoitem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="#FC0703"
-            android:textSize="20dp"
-            android:textStyle="bold"
-
-            />
-        <Button
-            android:id="@+id/EditHistory"
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="100dp"
-
-            android:fontFamily="@font/allura"
-            android:text="Edit History"
-            android:textColor="#C1F8B0B0"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            />
-
-
+                <Button
+                    android:id="@+id/EditHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:fontFamily="@font/allura"
+                    android:text="Edit History"
+                    android:textColor="#C1F8B0B0"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
-
-
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp">
-
     </android.support.v7.widget.RecyclerView>
+    <ProgressBar
+        android:id="@+id/progressBars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 </LinearLayout>

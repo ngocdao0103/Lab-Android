@@ -304,7 +304,7 @@ public class edititemActivity extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
                 String currentDateAndTime = sdf.format(new Date());
 
-                URL url = new URL("https://script.google.com/macros/s/AKfycbxKix31zwEInK1w6J-QbnkPSTqcSYAbS0jwJCcoBrpeXKEYss2Oyi1WcpztEksuvwHw/exec");
+                URL url = new URL("https://script.google.com/macros/s/AKfycbw8-wspu_lxF3curZR8tb9Q_TeYg-O9BmZg34CixB7zScDvo3rUaoKdbE1OlfCuxCRM/exec");
                 JSONObject postDataParams = new JSONObject();
 
                 postDataParams.put("Time", currentDateAndTime);
@@ -320,7 +320,16 @@ public class edititemActivity extends AppCompatActivity {
                 postDataParams.put("Quantity_Before", itemPriceBefore);
                 postDataParams.put("Quantity_After", itemPriceAfter);
 
-                postDataParams.put("Note", "Note");
+                postDataParams.put("Year_Before", "A");
+                postDataParams.put("Year_After", "B");
+
+                postDataParams.put("Originating_Before", "C");
+                postDataParams.put("Originating_After", "D");
+
+                postDataParams.put("Status_Before", "E");
+                postDataParams.put("Status_After", "F");
+
+
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000 /* milliseconds */);
