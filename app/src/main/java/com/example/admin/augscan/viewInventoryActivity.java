@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -13,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -32,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class viewInventoryActivity extends AppCompatActivity {
     Button EditHs;
@@ -85,6 +90,7 @@ public class viewInventoryActivity extends AppCompatActivity {
                 askForPermission(Manifest.permission.READ_EXTERNAL_STORAGE, READ_EXST);
                 askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, WRITE_EXST);
                 ExcelExporter.export(testList);
+                finish();
             }
         });
 
@@ -136,6 +142,7 @@ public class viewInventoryActivity extends AppCompatActivity {
                         model.getItemYear(),
                         model.getItemOrigin(),
                         model.getItemStatus());
+                // testList.clear();
                 testList.add(model);
                 processDialog.dismiss();
             }
@@ -152,10 +159,10 @@ public class viewInventoryActivity extends AppCompatActivity {
             } else {
                 ActivityCompat.requestPermissions(viewInventoryActivity.this, new String[]{permission}, requestCode);
             }
-            Toast.makeText(this, "DOWNLOAD FAILED.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Download Failed, Try Again!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "DOWNLOAD SUCCESSFUL, FILES IN DOWNLOAD.",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Download Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Download Success. File in \\Download\\" + ExcelExporter.getFileName(), Toast.LENGTH_LONG).show();
         }
     }
 }

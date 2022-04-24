@@ -33,7 +33,6 @@
                     android:id="@+id/totalnoitem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="0"
                     android:textColor="#FC0703"
                     android:textSize="20dp"
@@ -41,6 +40,7 @@
                 <ImageButton
                     android:id="@+id/exportExcel"
                     android:layout_width="wrap_content"
+                    android:layout_weight="2"
                     android:layout_height="50dp"
                     android:background="#00FFFFFF"
                     android:layout_column="3"
